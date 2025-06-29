@@ -1,0 +1,23 @@
+# Build artifacts
+*.o
+*.axf
+*.map
+*.lst
+*.log
+*.elf
+*.bin
+*.hex
+
+# Keil-specific
+*.uvoptx
+*.uvguix.*
+*.bak
+*.dep
+*.d
+*.plg
+*.sdf
+
+# Folders
+Objects/
+Listings/
+build/
