@@ -25,7 +25,8 @@ The system is designed for applications in robotics, wearables, smart sensing, a
 | ✅ LED Heartbeat Loop           | Complete     | All 4 LEDs blink in sync to indicate main loop alive|
 | ✅ Project Folder Cleanup       | Complete     | Old MPU-6050 code removed, LSM6DSO-only code tracked|
 | ✅ GitHub Repository Reinit     | Complete     | Clean repo created for new version                  |
-| 🔧 Sensor Stability Fix (Hardware) | Resolved   | Twisted + taped jumper wires for solid connection   |
+| ✅ Sensor Stability Fix (Hardware) | Complete   | Soldered pins to the breakout board for stronger wire connection   |
+| 🤖  FreeRTOS Setup                | Complete  | Confirmed with LED blink test (main_freertos_blink.c)|
 | 🛠️  LSM6DSO Register Init        | In Progress  | Preparing to configure accel/gyro via `CTRL1_XL` etc|
 | 🧪 Motion Data Capture           | Upcoming     | Next step: enable full sensor readout               |
 | 🧠 TFLM Integration              | Upcoming     | After sensor data confirmed        
@@ -109,8 +110,8 @@ Note: Some of the above modules are currently in progress and will be added as t
 - ✅ UART and I²C configured (PB2/PB3)
 - ✅ WHO_AM_I confirmed (LSM6DSO responsive at `0x6C`)
 - ✅ LED GPIO and UART logging active
-- ⏳ Sensor register init for accel/gyro output
-- ⏳ FreeRTOS task separation
+- ⏳ Sensor register init for accel/gyro output (reads raw values)
+- ⏳ FreeRTOS task separation (initial setup complete)
 - ⏳ Data logging and model training
 - ⏳ TFLM model deployment and fault logic
 - ⏳ Dashboard + OpenCV visualization
