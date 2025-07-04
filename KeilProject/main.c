@@ -22,8 +22,6 @@ int16_t read16(uint8_t baseAddr) {
     return (int16_t)((msb << 8) | lsb);
 }
 
-
-
 int main(void) {
     gSysClock = SysCtlClockFreqSet(
         SYSCTL_OSC_INT | SYSCTL_USE_PLL | SYSCTL_CFG_VCO_480,
@@ -90,6 +88,7 @@ int main(void) {
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0 | GPIO_PIN_1); // BLUE + WHITE
 
     while (1) {
+			
 			ax = read16(0x28); // OUTX_L_A
 			ay = read16(0x2A); // OUTY_L_A
 			az = read16(0x2C); // OUTZ_L_A

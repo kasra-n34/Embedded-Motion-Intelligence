@@ -61,6 +61,9 @@ __heap_limit
 
                 PRESERVE8
                 THUMB
+				IMPORT  vPortSVCHandler
+                IMPORT  xPortPendSVHandler
+                IMPORT  xPortSysTickHandler
 
 
 ; Vector Table Mapped to Address 0 at Reset
@@ -247,8 +250,8 @@ UsageFault_Handler\
                 B       .
                 ENDP
 SVC_Handler     PROC
-                EXPORT  SVC_Handler               [WEAK]
-                B       .
+                EXPORT  SVC_Handler
+                B       vPortSVCHandler
                 ENDP
 DebugMon_Handler\
                 PROC
@@ -256,12 +259,12 @@ DebugMon_Handler\
                 B       .
                 ENDP
 PendSV_Handler  PROC
-                EXPORT  PendSV_Handler            [WEAK]
-                B       .
+                EXPORT  PendSV_Handler
+                B       xPortPendSVHandler
                 ENDP
 SysTick_Handler PROC
-                EXPORT  SysTick_Handler           [WEAK]
-                B       .
+                EXPORT  SysTick_Handler
+                B       xPortSysTickHandler
                 ENDP
 
 Default_Handler PROC
