@@ -384,32 +384,12 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source Group 1</GroupName>
+          <GroupName>Core</GroupName>
           <Files>
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>i2c.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\i2c.h</FilePath>
-            </File>
-            <File>
-              <FileName>uart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\uart.h</FilePath>
+              <FilePath>.\Core\main.c</FilePath>
             </File>
             <File>
               <FileName>gpio.c</FileName>
@@ -424,7 +404,7 @@
             <File>
               <FileName>main_freertos_blink.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\main_freertos_blink.c</FilePath>
+              <FilePath>.\Core\main_freertos_blink.c</FilePath>
               <FileOption>
                 <CommonProperty>
                   <UseCPPCompiler>2</UseCPPCompiler>
@@ -476,6 +456,11 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+            <File>
+              <FileName>sensor_data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\sensor_data.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -546,6 +531,31 @@
               <FileName>heap_4.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Heap\heap_4.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers</GroupName>
+          <Files>
+            <File>
+              <FileName>uart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\uart.h</FilePath>
+            </File>
+            <File>
+              <FileName>i2c.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\i2c.h</FilePath>
+            </File>
+            <File>
+              <FileName>uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\i2c.c</FilePath>
             </File>
           </Files>
         </Group>
