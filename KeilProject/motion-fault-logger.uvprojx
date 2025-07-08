@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>PART_MSP432E401Y,__FPU_PRESENT=1</Define>
               <Undefine></Undefine>
-              <IncludePath>C:\ti\simplelink_msp432e4_sdk_4_20_00_12\source\ti\devices\msp432e4\inc;.\inc;C:\ti\simplelink_msp432e4_sdk_4_20_00_12\source\ti\devices\msp432e4;.\FreeRTOS\Source\include;.\FreeRTOS\portable\GCC\ARM_CM4F;.\FreeRTOSConfig;.\heap</IncludePath>
+              <IncludePath>C:\ti\simplelink_msp432e4_sdk_4_20_00_12\source\ti\devices\msp432e4\inc;.\inc;C:\ti\simplelink_msp432e4_sdk_4_20_00_12\source\ti\devices\msp432e4;.\FreeRTOS\Source\include;.\FreeRTOS\portable\GCC\ARM_CM4F;.\FreeRTOSConfig;.\heap;.\Core,.\Tasks</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -460,7 +460,17 @@
             <File>
               <FileName>sensor_data.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\sensor_data.h</FilePath>
+              <FilePath>.\Core\sensor_data.h</FilePath>
+            </File>
+            <File>
+              <FileName>imu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Core\imu.c</FilePath>
+            </File>
+            <File>
+              <FileName>imu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Core\imu.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -556,6 +566,31 @@
               <FileName>i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Drivers\i2c.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Tasks</GroupName>
+          <Files>
+            <File>
+              <FileName>sensor_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Tasks\sensor_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>sensor_task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Tasks\sensor_task.h</FilePath>
+            </File>
+            <File>
+              <FileName>logger_task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Tasks\logger_task.h</FilePath>
+            </File>
+            <File>
+              <FileName>logger_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Tasks\logger_task.c</FilePath>
             </File>
           </Files>
         </Group>
