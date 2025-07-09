@@ -26,10 +26,11 @@ The system is designed for applications in robotics, wearables, smart sensing, a
 | ✅ Project Folder Cleanup       | Complete     | Old MPU-6050 code removed, LSM6DSO-only code tracked|
 | ✅ GitHub Repository Reinit     | Complete     | Clean repo created for new version                  |
 | ✅ Sensor Stability Fix (Hardware) | Complete   | Soldered pins to the breakout board for stronger wire connection   |
-| 🤖  FreeRTOS Setup                | Complete  | Confirmed with LED blink test (main_freertos_blink.c)|
-| 🛠️  LSM6DSO Register Init        | In Progress  | Preparing to configure accel/gyro via `CTRL1_XL` etc|
+| ✅  FreeRTOS Setup                | Complete  | Confirmed with LED blink test (main_freertos_blink.c)|
+| ✅  Sensing/Logging with FreeRTOS        | Complete  |  Real time sensor task setup with FreeRTOS along with logging in UART|
+| 🧹 Cleaning up Sensor Data        | In Progress  |  Need to use filtering and improve soldering connections to ensure clean sensor data|
 | 🧪 Motion Data Capture           | Upcoming     | Next step: enable full sensor readout               |
-| 🧠 TFLM Integration              | Upcoming     | After sensor data confirmed        
+| 🧠 TFLM Integration              | Upcoming     | After sensor data confirmed        |
 
 ___
 
@@ -110,8 +111,9 @@ Note: Some of the above modules are currently in progress and will be added as t
 - ✅ UART and I²C configured (PB2/PB3)
 - ✅ WHO_AM_I confirmed (LSM6DSO responsive at `0x6C`)
 - ✅ LED GPIO and UART logging active
-- ⏳ Sensor register init for accel/gyro output (reads raw values)
-- ⏳ FreeRTOS task separation (initial setup complete)
+- ✅ Sensor register init for accel/gyro output (reads raw values and converts to appropriate units)
+- ✅ FreeRTOS task separation
+- ⏳ Clean/filtered sensor data
 - ⏳ Data logging and model training
 - ⏳ TFLM model deployment and fault logic
 - ⏳ Dashboard + OpenCV visualization
