@@ -23,5 +23,5 @@ void IMU_Init(void) {
     // Configure gyroscope (CTRL2_G)
     I2C0_WriteRegister(LSM6DSO_ADDR, 0x11, 0x60);  // 208 Hz, 250 dps
     // Control register 3 (CTRL3_C)
-    I2C0_WriteRegister(LSM6DSO_ADDR, 0x12, 0x04);  // IF_INC: auto-increment enabled
+    I2C0_WriteRegister(LSM6DSO_ADDR, 0x12, 0x44);  // IF_INC: auto-increment enabled
 }

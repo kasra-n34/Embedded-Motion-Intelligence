@@ -59,7 +59,7 @@ int main(void) {
     GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0 | GPIO_PIN_1); // Blue/White
 
     xTaskCreate(SensorTask, "Sensor", 128, NULL, 2, NULL);
-		xTaskCreate(LoggerTask, "Logger", 128, NULL, 1, NULL);
+		xTaskCreate(LoggerTask, "Logger", 256, NULL, 1, NULL);
 
 		vTaskStartScheduler(); // Start FreeRTOS
 }
