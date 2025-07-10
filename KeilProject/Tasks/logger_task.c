@@ -23,9 +23,21 @@ void LoggerTask(void *pvParameters) {
         float gy = gMotionData.gyroY * GYRO_SCALE_250DPS;
         float gz = gMotionData.gyroZ * GYRO_SCALE_250DPS;
 
-        UART0_Print("AX:%.2f AY:%.2f AZ:%.2f | GX:%.2f GY:%.2f GZ:%.2f\r\n",
-                    ax, ay, az, gx, gy, gz);
+        // ANSI escape codes: clear screen and move cursor to top-left
+        UART0_Print("\033[2J");  // Clear screen
+        UART0_Print("\033[H");   // Move cursor to home position (top-left)
 
-        vTaskDelay(pdMS_TO_TICKS(1000)); // 10 Hz logging
+        // Static layout
+        UART0_Print("   === Real-Time IMU Output ===   \r\n");
+        UART0_Print("-----------------------------------\r\n");
+        UART0_Print("Accel X: %.2f m/s²\r\n", ax);
+        UART0_Print("Accel Y: %.2f m/s²\r\n", ay);
+        UART0_Print("Accel Z: %.2f m/s²\r\n", az);
+        UART0_Print("\r\n");
+        UART0_Print("Gyro  X: %.2f deg/s\r\n", gx);
+        UART0_Print("Gyro  Y: %.2f deg/s\r\n", gy);
+        UART0_Print("Gyro  Z: %.2f deg/s\r\n", gz);
+
+        vTaskDelay(pdMS_TO_TICKS(500)); // 10 Hz logging
     }
 }
