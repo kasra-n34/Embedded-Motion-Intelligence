@@ -15,29 +15,36 @@ void LoggerTask(void *pvParameters) {
     (void)pvParameters;
 
     while (1) {
-        float ax = gMotionData.accelX * ACCEL_SCALE_2G;
-        float ay = gMotionData.accelY * ACCEL_SCALE_2G;
-        float az = gMotionData.accelZ * ACCEL_SCALE_2G;
+        float ax, ay, az, gx, gy, gz;
 
-        float gx = gMotionData.gyroX * GYRO_SCALE_250DPS;
-        float gy = gMotionData.gyroY * GYRO_SCALE_250DPS;
-        float gz = gMotionData.gyroZ * GYRO_SCALE_250DPS;
+        // Safely read the shared data
+        if (xSemaphoreTake(xMotionDataMutex, portMAX_DELAY)) {
+            ax = gMotionData.accelX;
+            ay = gMotionData.accelY;
+            az = gMotionData.accelZ;
+            gx = gMotionData.gyroX;
+            gy = gMotionData.gyroY;
+            gz = gMotionData.gyroZ;
+            xSemaphoreGive(xMotionDataMutex);
+        }
 
-        // ANSI escape codes: clear screen and move cursor to top-left
-        UART0_Print("\033[2J");  // Clear screen
-        UART0_Print("\033[H");   // Move cursor to home position (top-left)
+        // Scale to physical units
+        float ax_mps2 = ax * ACCEL_SCALE_2G;
+        float ay_mps2 = ay * ACCEL_SCALE_2G;
+        float az_mps2 = az * ACCEL_SCALE_2G;
+        float gx_dps  = gx * GYRO_SCALE_250DPS;
+        float gy_dps  = gy * GYRO_SCALE_250DPS;
+        float gz_dps  = gz * GYRO_SCALE_250DPS;
+				
+				//UART0_Print("\033[2J");  // Clear screen
 
-        // Static layout
-        UART0_Print("   === Real-Time IMU Output ===   \r\n");
-        UART0_Print("-----------------------------------\r\n");
-        UART0_Print("Accel X: %.2f m/s²\r\n", ax);
-        UART0_Print("Accel Y: %.2f m/s²\r\n", ay);
-        UART0_Print("Accel Z: %.2f m/s²\r\n", az);
-        UART0_Print("\r\n");
-        UART0_Print("Gyro  X: %.2f deg/s\r\n", gx);
-        UART0_Print("Gyro  Y: %.2f deg/s\r\n", gy);
-        UART0_Print("Gyro  Z: %.2f deg/s\r\n", gz);
+        // Print to UART
+        UART0_Print("=== RAW OUTPUT ===\r\n");
+        UART0_Print("Accel: X=%.2f m/s^2, Y=%.2f m/s^2, Z=%.2f m/s^2\r\n", ax_mps2, ay_mps2, az_mps2);
+        UART0_Print("Gyro : X=%.2f deg/s, Y=%.2f deg/s, Z=%.2f deg/s\r\n\r\n", gx_dps, gy_dps, gz_dps);
 
-        vTaskDelay(pdMS_TO_TICKS(500)); // 10 Hz logging
+				
+        vTaskDelay(pdMS_TO_TICKS(500)); // ~2 Hz
     }
 }
+

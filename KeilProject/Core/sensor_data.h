@@ -2,6 +2,10 @@
 #define SENSOR_DATA_H
 
 #include <stdint.h>
+#include "FreeRTOS.h"
+#include "semphr.h"
+
+ 
 
 typedef struct {
     int16_t accelX;
@@ -13,5 +17,6 @@ typedef struct {
 } MotionData_t;
 
 extern MotionData_t gMotionData;
+extern SemaphoreHandle_t xMotionDataMutex;
 
 #endif // SENSOR_DATA_H

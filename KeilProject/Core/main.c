@@ -10,10 +10,12 @@
 #include "hw_types.h"
 #include "hw_gpio.h"
 #include "FreeRTOS.h"
+#include "semphr.h"
 #include "task.h"
 #include "sensor_data.h"
 #include "sensor_task.h"  
 #include "logger_task.h"
+#include "ml_task.h"
 
 #define LSM6DSO_ADDR 0x6A
 #define WHO_AM_I_REG 0x0F
@@ -55,11 +57,22 @@ int main(void) {
     HWREG(GPIO_PORTF_BASE + GPIO_O_CR) |= GPIO_PIN_0;
     HWREG(GPIO_PORTF_BASE + GPIO_O_LOCK) = 0;
 
-    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0 | GPIO_PIN_4); // Red/Green
-    GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0 | GPIO_PIN_1); // Blue/White
+    GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_0 | GPIO_PIN_4); 
+    GPIOPinTypeGPIOOutput(GPIO_PORTN_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 
-    xTaskCreate(SensorTask, "Sensor", 128, NULL, 2, NULL);
-		xTaskCreate(LoggerTask, "Logger", 256, NULL, 1, NULL);
+		// Create mutex
+    xMotionDataMutex = xSemaphoreCreateMutex();
+    if (xMotionDataMutex == NULL) {
+        // Handle error (e.g., blink LED forever)
+				UART0_Print("No data.\r\n");
+        while(1);
+    }
+		
+    xTaskCreate(SensorTask, "Sensor", 512, NULL, 2, NULL);
+		xTaskCreate(LoggerTask, "Logger", 1024, NULL, 1, NULL);
+		//xTaskCreate(MLTask, "MLTask", 256, NULL, 2, NULL);
 
 		vTaskStartScheduler(); // Start FreeRTOS
+		
+		while (1); // should never reach here
 }

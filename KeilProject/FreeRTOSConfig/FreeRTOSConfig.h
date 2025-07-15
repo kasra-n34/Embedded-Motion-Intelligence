@@ -14,7 +14,7 @@ extern uint32_t gSysClock; // Your global clock set in main.c
 #define configMAX_API_CALL_INTERRUPT_PRIORITY   configMAX_SYSCALL_INTERRUPT_PRIORITY
 
 #define configMINIMAL_STACK_SIZE        ((uint16_t)128)
-#define configTOTAL_HEAP_SIZE           ((size_t)(10 * 1024)) // 10 KB
+#define configTOTAL_HEAP_SIZE           ((size_t)(30 * 1024)) // 10 KB
 #define configMAX_TASK_NAME_LEN         (16)
 
 #define configUSE_PREEMPTION            1

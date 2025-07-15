@@ -472,6 +472,11 @@
               <FileType>5</FileType>
               <FilePath>.\Core\imu.h</FilePath>
             </File>
+            <File>
+              <FileName>sensor_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Core\sensor_data.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -591,6 +596,16 @@
               <FileName>logger_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Tasks\logger_task.c</FilePath>
+            </File>
+            <File>
+              <FileName>ml_task.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Tasks\ml_task.h</FilePath>
+            </File>
+            <File>
+              <FileName>ml_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Tasks\ml_task.c</FilePath>
             </File>
           </Files>
         </Group>

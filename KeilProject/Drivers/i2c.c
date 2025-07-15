@@ -100,3 +100,27 @@ void I2C_ScanBus(void) {
         }
     }
 }
+
+// New multi-byte read helper 
+void I2C0_ReadMulti(uint8_t slaveAddr, uint8_t regAddr, uint8_t *data, uint8_t len) {
+    // Set starting register (write phase)
+    I2CMasterSlaveAddrSet(I2C0_BASE, slaveAddr, false);
+    I2CMasterDataPut(I2C0_BASE, regAddr);
+    I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_SINGLE_SEND);
+    while (I2CMasterBusy(I2C0_BASE));
+
+    // Switch to read mode
+    I2CMasterSlaveAddrSet(I2C0_BASE, slaveAddr, true);
+
+    for (uint8_t i = 0; i < len; i++) {
+        if (i == 0)
+            I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_START);
+        else if (i == len - 1)
+            I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_FINISH);
+        else
+            I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_CONT);
+
+        while (I2CMasterBusy(I2C0_BASE));
+        data[i] = I2CMasterDataGet(I2C0_BASE);
+    }
+}
