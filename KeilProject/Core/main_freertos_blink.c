@@ -21,13 +21,6 @@
 
 uint32_t gSysClock;
 
-int16_t read16(uint8_t baseAddr) {
-    uint8_t lsb = I2C0_ReadRegister(LSM6DSO_ADDR, baseAddr);
-    uint8_t msb = I2C0_ReadRegister(LSM6DSO_ADDR, baseAddr + 1);
-    return (int16_t)((msb << 8) | lsb);
-}
-
-
 
 void BlinkTask(void *pvParameters) {
     while (1) {

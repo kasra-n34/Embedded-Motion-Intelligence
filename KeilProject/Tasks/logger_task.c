@@ -7,44 +7,51 @@
 // Access global sensor data
 extern MotionData_t gMotionData;
 
-// Conversion factors based on ±2g and ±250 dps full scale
 #define ACCEL_SCALE_2G     (9.81f * 2.0f / 32768.0f)   // m/s² per LSB
-#define GYRO_SCALE_250DPS  (250.0f / 32768.0f)         // °/s per LSB
+#define GYRO_SCALE_250DPS  (250.0f / 32768.0f)         // deg/s per LSB
+
+// Manually set before each recording session
+static int currentLabel = 1;  // 0=stationary, 1=walking, 2=running...
 
 void LoggerTask(void *pvParameters) {
     (void)pvParameters;
 
-    while (1) {
-        float ax, ay, az, gx, gy, gz;
+    // Print CSV header once
+    UART0_Print("timestamp_ms,accelX_mps2,accelY_mps2,accelZ_mps2,gyroX_dps,gyroY_dps,gyroZ_dps,label\r\n");
 
-        // Safely read the shared data
+    while (1) {
+        int16_t rawAx = 0, rawAy = 0, rawAz = 0;
+        int16_t rawGx = 0, rawGy = 0, rawGz = 0;
+
+        // Safely copy the latest sensor data
         if (xSemaphoreTake(xMotionDataMutex, portMAX_DELAY)) {
-            ax = gMotionData.accelX;
-            ay = gMotionData.accelY;
-            az = gMotionData.accelZ;
-            gx = gMotionData.gyroX;
-            gy = gMotionData.gyroY;
-            gz = gMotionData.gyroZ;
+            rawAx = gMotionData.accelX;
+            rawAy = gMotionData.accelY;
+            rawAz = gMotionData.accelZ;
+            rawGx = gMotionData.gyroX;
+            rawGy = gMotionData.gyroY;
+            rawGz = gMotionData.gyroZ;
             xSemaphoreGive(xMotionDataMutex);
         }
 
-        // Scale to physical units
-        float ax_mps2 = ax * ACCEL_SCALE_2G;
-        float ay_mps2 = ay * ACCEL_SCALE_2G;
-        float az_mps2 = az * ACCEL_SCALE_2G;
-        float gx_dps  = gx * GYRO_SCALE_250DPS;
-        float gy_dps  = gy * GYRO_SCALE_250DPS;
-        float gz_dps  = gz * GYRO_SCALE_250DPS;
-				
-				//UART0_Print("\033[2J");  // Clear screen
+        // Convert to physical units
+        float ax_mps2 = rawAx * ACCEL_SCALE_2G;
+        float ay_mps2 = rawAy * ACCEL_SCALE_2G;
+        float az_mps2 = rawAz * ACCEL_SCALE_2G;
+        float gx_dps  = rawGx * GYRO_SCALE_250DPS;
+        float gy_dps  = rawGy * GYRO_SCALE_250DPS;
+        float gz_dps  = rawGz * GYRO_SCALE_250DPS;
 
-        // Print to UART
-        UART0_Print("=== RAW OUTPUT ===\r\n");
-        UART0_Print("Accel: X=%.2f m/s^2, Y=%.2f m/s^2, Z=%.2f m/s^2\r\n", ax_mps2, ay_mps2, az_mps2);
-        UART0_Print("Gyro : X=%.2f deg/s, Y=%.2f deg/s, Z=%.2f deg/s\r\n\r\n", gx_dps, gy_dps, gz_dps);
+        // Timestamp in ms
+        TickType_t timestamp = xTaskGetTickCount();
 
-				
-        vTaskDelay(pdMS_TO_TICKS(500)); // ~2 Hz
+        // Print CSV row
+        UART0_Print("%lu,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%d\r\n",
+                    (unsigned long)timestamp,
+                    ax_mps2, ay_mps2, az_mps2,
+                    gx_dps, gy_dps, gz_dps,
+                    currentLabel);
+
+        vTaskDelay(pdMS_TO_TICKS(20)); // ~50 Hz logging (same as sensing)
     }
 }
-

@@ -16,6 +16,11 @@ typedef struct {
     int16_t gyroZ;
 } MotionData_t;
 
+extern float sumAx, sumAy, sumAz;
+extern float sumGx, sumGy, sumGz;
+extern uint16_t sampleCount;
+
+
 extern MotionData_t gMotionData;
 extern SemaphoreHandle_t xMotionDataMutex;
 

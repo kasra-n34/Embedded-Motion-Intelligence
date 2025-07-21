@@ -19,7 +19,7 @@ void UART0_Init(void) {
     GPIOPinConfigure(GPIO_PA1_U0TX);
     GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 
-    UARTConfigSetExpClk(UART0_BASE, gSysClock, 9600,
+    UARTConfigSetExpClk(UART0_BASE, gSysClock, 460800,
         UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE);
 
     UARTEnable(UART0_BASE);

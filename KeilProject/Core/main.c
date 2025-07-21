@@ -34,6 +34,9 @@ int main(void) {
 
     I2C0_Init();
 		UART0_Print("I2C initialized.\r\n");
+		
+		//I2C_ScanBus();
+	
 	
     IMU_Init();  // LSM6DSO setup
 		UART0_Print("IMU initialized.\r\n");
