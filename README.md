@@ -43,7 +43,7 @@ ___
 - 💬 Sends structured UART logs (CSV/JSON) to host PC
 - 📊 Visualizes motion data and classification results in Power BI
 - ⚠️ Detects motion faults: inactivity, spikes, invalid transitions
-- 🔦 Uses color-coded LEDs to indicate motion states or faults
+- 🔦 Uses on-board LEDs to indicate motion states or faults
 
 ---
 
@@ -113,8 +113,9 @@ Note: Some of the above modules are currently in progress and will be added as t
 - ✅ LED GPIO and UART logging active
 - ✅ Sensor register init for accel/gyro output (reads raw values and converts to appropriate units)
 - ✅ FreeRTOS task separation
-- ⏳ Clean/filtered sensor data
-- ⏳ Data logging and model training
+- ✅ Clean/filtered sensor data
+- ✅ Data logging and model training
+- ✅ Microsoft Power BI data visualization
 - ⏳ TFLM model deployment and fault logic
 - ⏳ Dashboard + OpenCV visualization
 
@@ -127,6 +128,7 @@ Note: Some of the above modules are currently in progress and will be added as t
 | **Keil µVision**     | Embedded IDE and compiler              |
 | **TI DriverLib**     | Hardware abstraction for MSP432        |
 | **FreeRTOS**         | Real-time task management              |
+| **Sci-kit Learn**         | Baseline data validation  |
 | **TensorFlow Lite Micro** | Onboard ML inference              |
 | **OpenCV**           | Host visualization and overlays        |
 | **Power BI**         | Motion/fault data analytics dashboard  |
